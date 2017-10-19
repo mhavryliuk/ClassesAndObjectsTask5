@@ -30,12 +30,12 @@ namespace ClassesAndObjectsTask5
     {
         // Поля
         int[] IntArray;
-        int size;
+        int size = 0;
 
         // Конструктор, позволяющий создать массив размерности n.
         public OneDArray(int size)
         {
-            this.size=size;
+            this.size = size;
             IntArray = new int[size];
         }
 
@@ -43,7 +43,7 @@ namespace ClassesAndObjectsTask5
         public void InputIntArray()
         {
             Console.WriteLine("Введите элименты массива: ");
-            for (int i = 0; i < size; i++)
+            for (int i = 0; i < IntArray.Length; i++)
             {
                 Console.Write("A[{0}] = ", i);
                 IntArray[i] = int.Parse(Console.ReadLine());
@@ -61,21 +61,60 @@ namespace ClassesAndObjectsTask5
         }
 
         // Метод, позволяющий отсортировать элементы массива в порядке возрастания.
-        public void SortingArray()
-        {
-            Array.Sort(IntArray);
-           
-        }
+        public void SortingArray() => Array.Sort(IntArray);
 
         // Свойство возвращающее размерность массива (доступное только для чтения).
+        public string Length => $"\nРазмерность массива составляет {IntArray.Length} элемента.";
 
         // Свойство позволяющее домножить все элементы массива на скаляр (доступное только для записи).
+        public int Scalar
+        {
+            set
+            {
+                for (int i = 0; i < IntArray.Length; i++)
+                {
+                    IntArray[i] *= value;
+                }
+            }
+        }
 
         // Индексатор, позволяющий по индексу обращаться к соответствующему элементу массива.
+        public string this[int index]
+        {
+            get
+            {
+                if (index >= 0 && index < IntArray.Length)
+                {
+                    return $"Индексу [{index}] соответствует элемент {IntArray[index]}.";
+                }
+                else
+                {
+                    return $"Индекс [{index}] является недопустимым.";
+                }
+            }
+        }
 
         // Перегрузка операции ++: одновременно увеличивает значение всех элементов массива на 1.
+        public static OneDArray operator ++(OneDArray increment)
+        {
+            OneDArray array = new OneDArray(increment.IntArray.Length);
+            for (int i = 0; i < increment.IntArray.Length; i++)
+            {
+                increment.IntArray[i] += 1;
+            }
+            return increment;
+        }
 
         // Перегрузка операции --: одновременно уменьшает значение всех элементов массива на 1.
+        public static OneDArray operator --(OneDArray decrement)
+        {
+            OneDArray array = new OneDArray(decrement.IntArray.Length);
+            for (int i = 0; i < decrement.IntArray.Length; i++)
+            {
+                decrement.IntArray[i] -= 1;
+            }
+            return decrement;
+        }
 
         // Перегрузка операции !: возвращает значение true, если элементы массива не упорядочены по возрастанию, иначе false.
 
