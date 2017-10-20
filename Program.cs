@@ -22,20 +22,36 @@ namespace ClassesAndObjectsTask5
             Console.WriteLine("\nМассив, элементы которого умножены на скаляр (3):");
             array.Scalar = 3;
             array.ShowIntArray();                    // Элементы массива умноженные на скаляр
-            
+
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("\nОбращение к элементам массива по индексу:");
+            Console.ResetColor();
             Console.WriteLine(array[-1]);            // Обращение к элементам массива по индексу
             Console.WriteLine(array[0]);
-            Console.WriteLine(array[1]);
-            Console.WriteLine(array[3]);
-            Console.WriteLine(array[10]);
+            Console.WriteLine(array[2]);
+            Console.WriteLine(array[7]);
 
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("\nДемонстрация перегрузки операций");
+            Console.ResetColor();
+            Console.Write("Перегрузка операции ++: ");
             ++array;                                 // Перегрузка операции ++
             array.ShowIntArray();
+            Console.Write("Перегрузка операции --: ");
             --array;                                 // Перегрузка операции --
             array.ShowIntArray();
+            Console.Write("Перегрузка операции *5: ");
+            array *= 5;                              // Перегрузка операции *
+            array.ShowIntArray();
 
+            if (!array)                              // Перегрузка операции !
+            {
+                Console.WriteLine("Элементы массива НЕ упорядочены по возрастанию!");
+            }
+            else
+            {
+                Console.WriteLine("Элементы массива упорядочены по возрастанию.");
+            }
 
             Console.ReadKey();
         }

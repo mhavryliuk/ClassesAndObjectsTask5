@@ -117,10 +117,39 @@ namespace ClassesAndObjectsTask5
         }
 
         // Перегрузка операции !: возвращает значение true, если элементы массива не упорядочены по возрастанию, иначе false.
+        public static bool operator !(OneDArray array)
+        {
+            bool sort = false;
+            for (int i = 0; i < array.IntArray.Length - 1; i++)
+                if (array.IntArray[i] > array.IntArray[i + 1])
+                {
+                    sort = true;
+                }
+            return sort;
+        }
 
         // Перегрузка операции бинарный *: домножить все элементы массива на скаляр.
+        public static OneDArray operator *(OneDArray multiplication, int scalar)
+        {
+            OneDArray array = new OneDArray(multiplication.IntArray.Length);
+            for (int i = 0; i < multiplication.IntArray.Length; i++)
+            {
+                multiplication.IntArray[i] *= scalar;
+            }
+            return multiplication;
+        }
 
         // Перегрузка операции преобразования класса массив в одномерный массив(и наоборот).
+        public static explicit operator OneDArray (int[] array)
+        {
+            OneDArray transformation = new OneDArray(array.Length);
+            array.CopyTo(transformation.IntArray, 0);
+            return transformation;
+        }
 
+        public static explicit operator int[] (OneDArray transformation)
+        {
+            return transformation.IntArray;
+        }
     }
 }
